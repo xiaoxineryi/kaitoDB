@@ -96,11 +96,8 @@ impl kd_type{
                 typ_type: k_type as char,
                 typ_len: k_len
             });
-
             println!("{:?}",TYPES[index as usize]);
         }
-
-
     }
 
     fn init_types_privacy(path:String){
@@ -118,12 +115,10 @@ impl kd_type{
                 }
             }
         }
-
         let file = match File::open(file_path) {
             Ok(file)=> file,
             Err(err)=>{panic!("文件无法打开,错误类型为{}",err);}
         };
-
         unsafe { kd_type::load_types(file); }
     }
 

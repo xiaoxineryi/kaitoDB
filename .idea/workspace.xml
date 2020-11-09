@@ -30,12 +30,16 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e8f557-9665-4ab3-889f-76d51d21337e" name="Default Changelist" comment="完成了数据库初始化的工作">
-      <change afterPath="$PROJECT_DIR$/src/global/global.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/global/kd_type.rs" afterDir="false" />
+    <list default="true" id="38e8f557-9665-4ab3-889f-76d51d21337e" name="Default Changelist" comment="完成了基本数据类型的读取">
+      <change afterPath="$PROJECT_DIR$/src/global/kd_database.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/global/kd_table.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global/global.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/global/global.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global/kd_type.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/global/kd_type.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/global/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/global/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pg/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pg/pg_setting.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/数据库开发作业一.md" beforeDir="false" afterPath="$PROJECT_DIR$/数据库开发作业一.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,11 +77,6 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="channel" value="DEFAULT" />
       <option name="command" value="run --package kaitoDB --bin kaitoDB" />
@@ -112,7 +111,10 @@
       <workItem from="1604760330519" duration="7148000" />
       <workItem from="1604767502519" duration="103000" />
       <workItem from="1604793940679" duration="7037000" />
-      <workItem from="1604882196401" duration="3607000" />
+      <workItem from="1604882196401" duration="4273000" />
+      <workItem from="1604888397546" duration="3229000" />
+      <workItem from="1604906501467" duration="1629000" />
+      <workItem from="1604908340216" duration="4192000" />
     </task>
     <task id="LOCAL-00001" summary="项目新建">
       <created>1604562622227</created>
@@ -128,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604767587163</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="完成了基本数据类型的读取">
+      <created>1604885857574</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1604885857574</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +158,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="项目新建" />
     <MESSAGE value="完成了数据库初始化的工作" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成了数据库初始化的工作" />
+    <MESSAGE value="完成了基本数据类型的读取" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成了基本数据类型的读取" />
   </component>
   <component name="WindowStateProjectService">
     <state x="590" y="177" key="#Inspections" timestamp="1604743526507">
@@ -168,50 +178,50 @@
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
     <state width="542" height="699" key="DebuggerActiveHint/0.0.1920.1035@0.0.1920.1035" timestamp="1604885773371" />
-    <state x="652" y="213" key="FileChooserDialogImpl" timestamp="1604657298023">
+    <state x="652" y="213" key="FileChooserDialogImpl" timestamp="1604912071867">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state x="652" y="213" key="FileChooserDialogImpl/0.0.1920.1035@0.0.1920.1035" timestamp="1604657298023" />
-    <state width="1854" height="309" key="GridCell.Tab.0.bottom" timestamp="1604885796111">
+    <state x="652" y="213" key="FileChooserDialogImpl/0.0.1920.1035@0.0.1920.1035" timestamp="1604912071867" />
+    <state width="1854" height="373" key="GridCell.Tab.0.bottom" timestamp="1604912853330">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.0.bottom/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796111" />
-    <state width="1854" height="309" key="GridCell.Tab.0.center" timestamp="1604885796109">
+    <state width="1854" height="373" key="GridCell.Tab.0.bottom/0.0.1920.1035@0.0.1920.1035" timestamp="1604912853330" />
+    <state width="1854" height="373" key="GridCell.Tab.0.center" timestamp="1604912853328">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.0.center/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796109" />
-    <state width="1854" height="309" key="GridCell.Tab.0.left" timestamp="1604885796108">
+    <state width="1854" height="373" key="GridCell.Tab.0.center/0.0.1920.1035@0.0.1920.1035" timestamp="1604912853327" />
+    <state width="1854" height="373" key="GridCell.Tab.0.left" timestamp="1604912853326">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.0.left/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796108" />
-    <state width="1854" height="309" key="GridCell.Tab.0.right" timestamp="1604885796111">
+    <state width="1854" height="373" key="GridCell.Tab.0.left/0.0.1920.1035@0.0.1920.1035" timestamp="1604912853326" />
+    <state width="1854" height="373" key="GridCell.Tab.0.right" timestamp="1604912853328">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.0.right/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796111" />
-    <state width="1854" height="309" key="GridCell.Tab.1.bottom" timestamp="1604885796114">
+    <state width="1854" height="373" key="GridCell.Tab.0.right/0.0.1920.1035@0.0.1920.1035" timestamp="1604912853328" />
+    <state width="1854" height="309" key="GridCell.Tab.1.bottom" timestamp="1604887494643">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.1.bottom/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796114" />
-    <state width="1854" height="309" key="GridCell.Tab.1.center" timestamp="1604885796113">
+    <state width="1854" height="309" key="GridCell.Tab.1.bottom/0.0.1920.1035@0.0.1920.1035" timestamp="1604887494643" />
+    <state width="1854" height="309" key="GridCell.Tab.1.center" timestamp="1604887494641">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.1.center/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796113" />
-    <state width="1854" height="309" key="GridCell.Tab.1.left" timestamp="1604885796112">
+    <state width="1854" height="309" key="GridCell.Tab.1.center/0.0.1920.1035@0.0.1920.1035" timestamp="1604887494641" />
+    <state width="1854" height="309" key="GridCell.Tab.1.left" timestamp="1604887494641">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.1.left/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796112" />
-    <state width="1854" height="309" key="GridCell.Tab.1.right" timestamp="1604885796114">
+    <state width="1854" height="309" key="GridCell.Tab.1.left/0.0.1920.1035@0.0.1920.1035" timestamp="1604887494641" />
+    <state width="1854" height="309" key="GridCell.Tab.1.right" timestamp="1604887494642">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state width="1854" height="309" key="GridCell.Tab.1.right/0.0.1920.1035@0.0.1920.1035" timestamp="1604885796114" />
-    <state x="287" y="65" width="1346" height="916" key="SettingsEditor" timestamp="1604882274891">
+    <state width="1854" height="309" key="GridCell.Tab.1.right/0.0.1920.1035@0.0.1920.1035" timestamp="1604887494642" />
+    <state x="287" y="65" width="1346" height="916" key="SettingsEditor" timestamp="1604906558548">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state x="287" y="65" width="1346" height="916" key="SettingsEditor/0.0.1920.1035@0.0.1920.1035" timestamp="1604882274891" />
-    <state x="460" y="163" width="1000" height="708" key="Vcs.Push.Dialog.v2" timestamp="1604767589503">
+    <state x="287" y="65" width="1346" height="916" key="SettingsEditor/0.0.1920.1035@0.0.1920.1035" timestamp="1604906558548" />
+    <state x="460" y="163" width="1000" height="708" key="Vcs.Push.Dialog.v2" timestamp="1604885860508">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state x="460" y="163" width="1000" height="708" key="Vcs.Push.Dialog.v2/0.0.1920.1035@0.0.1920.1035" timestamp="1604767589503" />
+    <state x="460" y="163" width="1000" height="708" key="Vcs.Push.Dialog.v2/0.0.1920.1035@0.0.1920.1035" timestamp="1604885860508" />
     <state x="642" y="404" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604562612853">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
@@ -220,16 +230,5 @@
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
     <state x="904" y="0" width="908" height="1033" key="search.everywhere.popup/0.0.1920.1035@0.0.1920.1035" timestamp="1604766128304" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/global/kd_type.rs</url>
-          <line>75</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
