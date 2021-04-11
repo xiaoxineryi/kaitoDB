@@ -14,7 +14,6 @@ use crate::SIZE;
 pub struct DiskHeader{
     pub page_number:u32
 }
-
 pub struct DiskHandler{
     pub disk_header:DiskHeader,
     pub file_name:String
@@ -60,7 +59,6 @@ impl DiskManager{
         }
     }
 }
-
 
 impl DiskHandler{
     pub fn get_page(&self, pageID:u32)->[u8;SIZE]{

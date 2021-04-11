@@ -3,6 +3,9 @@ use crate::Disk::Disk::DiskManager;
 use crate::DataItem::Page::{ItemHandler, ItemManager};
 use std::borrow::Borrow;
 use std::convert::TryInto;
+use std::rc::Rc;
+use crate::BufferPool::BufferPool::BufferPool;
+use std::cell::{Ref, RefCell};
 
 #[derive(Clone)]
 pub struct Format{
@@ -12,7 +15,9 @@ pub struct Format{
 
 
 
-pub struct TableManager{}
+pub struct TableManager{
+   pub(crate) buffer_pool:Rc<RefCell<BufferPool>>
+}
 
 impl TableManager{
    fn save_attr(page:&mut[u8;SIZE],attrs:Vec<Format>,s:usize){
@@ -38,7 +43,7 @@ impl TableManager{
          page[index] = e[index];
       }
    }
-   pub fn create_table(file_name:&str,attrs:Vec<Format>,size:u32)->TableHandler{
+   pub fn create_table(&self,file_name:&str,attrs:Vec<Format>,size:u32)->TableHandler{
       let disk_handler = DiskManager::create_file(file_name,size);
       let mut page = disk_handler.get_page(0);
       let c = attrs.clone();
@@ -54,26 +59,26 @@ impl TableManager{
          file_name: String::from(file_name),
          attr_num,
          attr_format: c.clone(),
-         page_handler: ItemManager::new_item_handler(String::from(file_name),0)
+         page_handler: ItemManager::new_item_handler(String::from(file_name),0,self.buffer_pool.clone())
       }
    }
 
-   pub fn open_table(file_name:&str)->TableHandler{
+   pub fn open_table(&self,file_name:&str)->TableHandler{
       let disk_handler = DiskManager::get_file(file_name);
       let page = disk_handler.get_page(0);
-      TableHandler::get_table_handler(file_name,&page)
+      TableHandler::get_table_handler(file_name,&page,self.buffer_pool.clone())
    }
 }
 
 pub struct TableHandler{
    file_name:String,
    pub attr_num:u8,
-   attr_format:Vec<Format>,
-   page_handler:ItemHandler
+   pub attr_format:Vec<Format>,
+   pub page_handler:ItemHandler
 }
 
 impl TableHandler {
-   fn get_table_handler(file_name:&str,page:&[u8;SIZE])->TableHandler{
+   fn get_table_handler(file_name:&str,page:&[u8;SIZE],buffer_pool:Rc<RefCell<BufferPool>>)->TableHandler{
       let free_id = u32::from_be_bytes((&page[0..4]).try_into().unwrap());
       let attr_num = page[4];
       let mut formats:Vec<Format> = Vec::new();
@@ -98,10 +103,43 @@ impl TableHandler {
          file_name: String::from(file_name),
          attr_num,
          attr_format: formats,
-         page_handler: ItemManager::new_item_handler(String::from(file_name),free_id)
+         page_handler: ItemManager::new_item_handler(String::from(file_name),free_id,buffer_pool.clone())
       }
    }
 
-   fn parse_item()
 
+   // 解析数据
+   pub fn parse_item(&self,item:&Vec<u8>){
+      let mut start = 0usize;
+      for f in self.attr_format.iter() {
+         let size = item[start];
+         let attr = &item[start..start+1+size as usize];
+         println!("属性名为:{}",f.attr_name);
+         self.parse_attr(attr,f.attr_type);
+         start += 1+size as usize;
+      }
+   }
+   // 解析属性
+   fn parse_attr(&self,attr:&[u8],attr_type:u8){
+      let size = attr[0] as usize;
+      match attr_type {
+         1=>{
+            // 如果是1表示是u32类型的
+            let e = u32::from_be_bytes(attr[1..1+size].try_into().unwrap());
+            println!("{}",e);
+         },
+         2=>{
+            //  如果是2的话 表示是varchar类型的
+            let e = String::from_utf8_lossy(attr[1..1+size].try_into().unwrap());
+            println!("{}",e);
+         },
+         3=>{
+            println!("我是float");
+
+         },
+         _=>{
+           panic!("没有对应的属性信息")
+         },
+      }
+   }
 }
